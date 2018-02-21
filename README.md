@@ -1,4 +1,2 @@
-express-sendfile
+Creating basic CRUD application using Node.js and Express
 ================
-
-Code for the tutorial by @sevilayha: Use ExpressJS to Deliver HTML Files
