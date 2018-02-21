@@ -25,7 +25,7 @@ connection.connect(function(err) {
         if (err) throw err;
         var item = JSON.stringify(result);
         var data = JSON.parse(item);
-        console.log(data[0]);
+        console.log(data[0].name);
         //console.log(JSON.stringify(result));
     });
 });
