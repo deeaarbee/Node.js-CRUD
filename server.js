@@ -53,12 +53,6 @@ app.post('/logout',function (req,res) {
     res.send("logout");
 });
 
-app.post('/update',function (req,res) {
-    var data = req.body;
-    console.log(data);
-    res.send("update");
-});
-
 app.listen(8080,function () {
     console.log("running on port 8080");
 });
