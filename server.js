@@ -3,7 +3,6 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
-
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -17,18 +16,6 @@ var connection = mysql.createConnection({
     database: "testdatabase"
 });
 
-connection.connect(function(err) {
-    var sql = "SELECT * FROM user";
-    if (err) throw err;
-    console.log("Connected!");
-    connection.query(sql, function (err, result,fields) {
-        if (err) throw err;
-        var item = JSON.stringify(result);
-        var data = JSON.parse(item);
-        console.log(data[0].name);
-        //console.log(JSON.stringify(result));
-    });
-});
 
 // viewed at http://localhost:8080
 app.get('/', function(req, res) {
@@ -36,18 +23,28 @@ app.get('/', function(req, res) {
 });
 
 
-app.post('/register',function (req,res) {
-    var data = req.body;
-    console.log(data.name);
-    res.send("register");
-    console.log("register")
-});
-
 
 app.post('/login',function (req,res) {
     var data = req.body;
-    console.log(data);
-    res.send("login");
+    var username = data.username;
+    var password = data.password;
+
+    connection.connect(function (err) {
+        var sql = "Select * FROM user";
+        connection.query(sql,function (err, result) {
+            if (err) throw err;
+            for (var i=0;i<result.length;i++){
+                    console.log(result[i].name);
+                    if(result[i].name === username && result[i].age===password){
+                        console.log("verified");
+                    }
+            }
+        });
+
+    });
+
+    //console.log(data);
+    res.json({"login":true,"age":"agggge"});
 });
 
 app.post('/logout',function (req,res) {
